@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mario Rodríguez — QA Automation</title>
+<meta name="description" content="QA Automation Engineer freelance. Automatización E2E, testing de API y performance integrado en CI/CD.">
+<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#FF4420">
+<style>
+/* Fonts served from our own domain (not Google's CDN) so no visitor IP is sent to a third party on page load — see /privacidad.html */
+@font-face{
+  font-family:"Archivo";
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  src:url("assets/fonts/archivo.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Big Shoulders Display";
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  src:url("assets/fonts/bigshouldersdisplay.woff2") format("woff2");
+}
+@font-face{
+  font-family:"JetBrains Mono";
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  src:url("assets/fonts/jetbrainsmono.woff2") format("woff2");
+}
+/* Layout: flat saturated color blocks (no gradients), oversized condensed type cropped at the edge, thick rules — editorial poster. Light-only by deliberate choice. */
+:root{
+  --bg:#F6F1E4;
+  --ink:#141210;
+  --surface:#FFFFFF;
+  --accent:#FF4420;
+  --accent-ink:#5C1400;
+  --lime:#5C7A3A;
+  --line:#141210;
+  --mute:#5B5548;
+  color-scheme:light;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg);color:var(--ink);margin:0;overflow-x:hidden;
+  font-family:"Archivo",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.5;
+}
+h1,h2,h3{
+  font-family:"Big Shoulders Display","Archivo",sans-serif;
+  font-weight:900;text-transform:uppercase;margin:0;letter-spacing:-0.01em;line-height:0.92;
+}
+p{margin:0;}
+a{color:inherit;}
+.mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;}
+.wrap{max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,4vw,52px);}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:3px solid var(--line);}
+.nav-inner{max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,4vw,52px);display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:10px;}
+.brand{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:1.05rem;text-transform:uppercase;letter-spacing:0.01em;line-height:0.86;}
+.nav-links{display:flex;gap:1.7rem;list-style:none;margin:0;padding:0;}
+.nav-links a{font-family:"JetBrains Mono",monospace;font-size:0.76rem;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;color:var(--mute);}
+.nav-links a:hover{color:var(--ink);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.lang-btn{font-family:"JetBrains Mono",monospace;font-size:0.72rem;font-weight:700;text-transform:uppercase;background:transparent;border:2px solid var(--line);color:var(--ink);padding:8px 12px;cursor:pointer;}
+.lang-btn:hover{background:var(--ink);color:var(--bg);}
+.btn{
+  font-family:"JetBrains Mono",monospace;font-weight:600;font-size:0.82rem;letter-spacing:0.03em;text-transform:uppercase;
+  text-decoration:none;display:inline-block;padding:13px 22px;border:2px solid var(--line);
+}
+.btn-solid{background:var(--ink);color:var(--bg);}
+.btn-solid:hover{background:transparent;color:var(--ink);}
+.btn-accent{background:var(--accent);color:#FFF3EA;border-color:var(--accent);}
+.btn-accent:hover{background:transparent;color:var(--accent);}
+.btn-line{background:transparent;color:var(--ink);}
+.btn-line:hover{background:var(--ink);color:var(--bg);}
+.btn-mail{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.btn-mail:hover{background:var(--accent);color:#FFF3EA;border-color:var(--accent);}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--accent);color:#FFF3EA;border-bottom:3px solid var(--line);position:relative;overflow:hidden;}
+.hero-inner{padding-block:clamp(32px,6vw,52px) clamp(56px,9vw,96px);position:relative;}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0.92;}
+.kicker::before{content:"";width:9px;height:9px;background:var(--lime);display:inline-block;}
+.hero h1{font-size:clamp(3.2rem,11vw,8.2rem);color:#FFF3EA;}
+.hero h1 .out{-webkit-text-stroke:2px #FFF3EA;color:transparent;}
+.hero-row{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;margin-top:28px;}
+.hero-sub{max-width:46ch;font-size:1.15rem;opacity:0.95;}
+.aside-note{margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:0.82rem;opacity:0.85;}
+.about-p{max-width:66ch;font-size:1.08rem;color:var(--ink);margin-bottom:16px;}
+.about-avail{font-family:"JetBrains Mono",monospace;font-size:0.84rem;color:var(--mute);max-width:60ch;}
+.stamp{
+  width:132px;height:132px;border:3px solid #FFF3EA;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  transform:rotate(-10deg);flex:0 0 auto;
+}
+.stamp .st-in{font-family:"JetBrains Mono",monospace;font-size:0.68rem;letter-spacing:0.05em;line-height:1.4;text-transform:uppercase;}
+.stamp b{display:block;font-family:"Big Shoulders Display",sans-serif;font-size:1.6rem;font-weight:900;}
+.cta-row{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
+
+/* ---------- STATS ---------- */
+.stats{border-bottom:3px solid var(--line);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.stat{padding:26px 20px;border-right:3px solid var(--line);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat b{display:block;font-family:"Big Shoulders Display",sans-serif;font-size:clamp(2.2rem,4.4vw,3.4rem);font-weight:900;color:var(--accent);}
+.stat span{font-family:"JetBrains Mono",monospace;font-size:0.72rem;color:var(--mute);text-transform:uppercase;letter-spacing:0.02em;}
+
+/* ---------- SECTION HEAD ---------- */
+.sec{padding-block:clamp(48px,7vw,84px);border-bottom:3px solid var(--line);}
+.sec:last-of-type{border-bottom:none;}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:clamp(28px,5vw,44px);flex-wrap:wrap;}
+.sec-head h2{font-size:clamp(2.2rem,5vw,3.6rem);}
+.sec-num{font-family:"JetBrains Mono",monospace;font-size:0.85rem;color:var(--mute);}
+
+/* ---------- SERVICES: numbered index list ---------- */
+.svc-list{border-top:3px solid var(--line);}
+.svc{display:grid;grid-template-columns:80px 1fr 1fr;gap:24px;padding-block:22px;border-bottom:3px solid var(--line);align-items:baseline;}
+.svc-idx{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:1.6rem;color:var(--accent);}
+.svc h3{font-family:"Big Shoulders Display",sans-serif;text-transform:uppercase;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;}
+.svc-right p{color:var(--mute);font-size:0.98rem;max-width:44ch;}
+.svc-right .tools{margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--mute);}
+
+/* ---------- CLIENT CASES ---------- */
+.case-list{border-top:3px solid var(--line);}
+.case{border-bottom:3px solid var(--line);padding-block:32px;display:grid;grid-template-columns:210px 1fr;gap:clamp(24px,4vw,44px);align-items:start;}
+.case-stat{display:flex;flex-direction:column;gap:6px;}
+.case-stat b{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.15rem);color:var(--accent);line-height:0.95;}
+.case-stat span{font-family:"JetBrains Mono",monospace;font-size:0.7rem;color:var(--mute);text-transform:uppercase;line-height:1.35;}
+.case-tag{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;}
+.case p{font-size:1.03rem;color:var(--ink);max-width:58ch;}
+.case .tools{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:0.72rem;color:var(--mute);}
+
+/* ---------- STACK ---------- */
+.stack-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:3px solid var(--line);border-left:3px solid var(--line);}
+.stack-card{border-right:3px solid var(--line);border-bottom:3px solid var(--line);padding:22px;}
+.stack-card h4{font-family:"JetBrains Mono",monospace;font-size:0.74rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-family:"JetBrains Mono",monospace;font-size:0.78rem;border:2px solid var(--line);padding:6px 11px;}
+
+/* ---------- CERTIFICATIONS ---------- */
+.certs{border-top:3px solid var(--line);display:grid;grid-template-columns:repeat(2,1fr);}
+.cert{padding:20px 22px;border-right:3px solid var(--line);border-bottom:3px solid var(--line);display:flex;align-items:center;gap:12px;}
+.cert:nth-child(2n){border-right:none;}
+.cert::before{content:"✓";font-family:"JetBrains Mono",monospace;color:var(--accent);font-weight:700;font-size:1.1rem;}
+.cert-name{font-weight:700;font-size:1rem;}
+
+/* ---------- CONTACT FORM ---------- */
+.contact-form{display:flex;flex-direction:column;gap:22px;max-width:680px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.field{display:flex;flex-direction:column;gap:8px;}
+.field label{font-family:"JetBrains Mono",monospace;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--mute);}
+.field input,.field textarea{
+  font-family:"Archivo",sans-serif;font-size:1rem;padding:13px 14px;
+  border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:0;
+}
+.field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:2px;}
+.field textarea{resize:vertical;min-height:130px;font-family:"Archivo",sans-serif;}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--accent);}
+.field-error{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--accent);min-height:1em;}
+.field-required{color:var(--accent);}
+.hp-field{position:absolute;left:-9999px;top:-9999px;}
+.form-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.form-status{font-family:"JetBrains Mono",monospace;font-size:0.82rem;}
+.form-status.ok{color:var(--lime);}
+.form-status.err{color:var(--accent);}
+.form-note{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--mute);max-width:60ch;}
+.form-note a{color:var(--ink);}
+
+/* ---------- FINAL CTA ---------- */
+.cta-band{background:var(--accent);color:#FFF3EA;padding-block:clamp(56px,9vw,100px);text-align:center;border-bottom:3px solid var(--line);}
+.cta-band .kicker{justify-content:center;color:#FFF3EA;}
+.cta-band .kicker::before{background:var(--ink);}
+.cta-band h2{font-size:clamp(2.6rem,8vw,6rem);color:#FFF3EA;}
+.cta-band p{color:#FFF3EA;opacity:0.85;max-width:46ch;margin-inline:auto;margin-top:20px;font-size:1.05rem;}
+.cta-band .cta-row{justify-content:center;margin-top:32px;}
+.cta-band .btn-line{border-color:#FFF3EA;}
+.cta-band .btn-line:hover{background:#FFF3EA;color:var(--accent-ink);}
+
+/* ---------- LOGO STRIP ---------- */
+.logo-strip{border-bottom:3px solid var(--line);padding-block:clamp(32px,5vw,48px);}
+.logo-strip .strip-label{font-family:"JetBrains Mono",monospace;font-size:0.76rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--mute);text-align:center;margin-bottom:26px;}
+.logo-row{display:flex;justify-content:center;align-items:center;gap:clamp(24px,5vw,56px);flex-wrap:wrap;}
+.logo-row img{height:36px;width:auto;max-width:150px;object-fit:contain;filter:grayscale(1);opacity:0.75;transition:opacity 0.15s,filter 0.15s;}
+.logo-row img:hover{filter:grayscale(0);opacity:1;}
+
+/* ---------- FOOTER ---------- */
+footer.foot{padding-block:28px;}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:0.78rem;color:var(--mute);}
+.foot-links{display:flex;gap:1.4rem;list-style:none;margin:0;padding:0;}
+.foot-links a{text-decoration:none;color:var(--mute);}
+.foot-links a:hover{color:var(--ink);}
+.foot-legal{border-top:1px solid var(--line);margin-top:16px;padding-top:16px;}
+.foot-legal .foot-links{gap:1.2rem;}
+
+/* ---------- COOKIE NOTICE (top strip, in normal flow — pushes content down, never overlaps it) ---------- */
+.cookie-notice{
+  background:var(--ink);color:var(--bg);
+  padding:12px clamp(16px,4vw,52px);
+  padding-top:calc(12px + env(safe-area-inset-top,0px));
+  display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
+  font-family:"Archivo",sans-serif;font-size:0.84rem;text-align:center;
+}
+.cookie-notice p{margin:0;max-width:60ch;}
+.cookie-notice a{color:var(--bg);text-decoration:underline;}
+.cookie-notice button{
+  font-family:"JetBrains Mono",monospace;font-size:0.76rem;font-weight:700;text-transform:uppercase;
+  background:var(--bg);color:var(--ink);border:2px solid var(--bg);padding:8px 15px;cursor:pointer;flex:0 0 auto;
+}
+.cookie-notice button:hover{background:transparent;color:var(--bg);}
+.cookie-notice[hidden]{display:none;}
+
+@media (max-width:820px){
+  .hero-row{grid-template-columns:1fr;align-items:start;}
+  .stamp{transform:rotate(-6deg);margin-top:10px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat:nth-child(2){border-right:none;}
+  .stat{border-bottom:3px solid var(--line);}
+  .svc{grid-template-columns:50px 1fr;}
+  .svc-right{grid-column:1 / -1;}
+  .stack-groups{grid-template-columns:1fr;}
+  .case{grid-template-columns:1fr;}
+  .certs{grid-template-columns:1fr;}
+  .cert{border-right:none !important;}
+  .nav-links{display:none;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="cookie-notice" id="cookieNotice" hidden>
+  <p data-i18n="cookie-text">Solo usamos almacenamiento técnico necesario (idioma) — sin cookies de analítica ni publicidad. Más info en nuestra <a href="/cookies.html">Política de Cookies</a>.</p>
+  <button type="button" id="cookieOk" data-i18n="cookie-ok">Entendido</button>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Mario<br>Rodríguez</div>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi" data-i18n="nav-about">Sobre mí</a></li>
+      <li><a href="#servicios" data-i18n="nav-servicios">Servicios</a></li>
+      <li><a href="#clientes" data-i18n="nav-clientes">Clientes</a></li>
+      <li><a href="#stack" data-i18n="nav-stack">Stack</a></li>
+      <li><a href="#certificaciones" data-i18n="nav-cert">Certificaciones</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="lang-btn" id="langToggle" type="button">EN</button>
+      <a class="btn btn-solid" href="#contacto" data-i18n="nav-cta">Hablemos</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="kicker" data-i18n="hero-kicker">Disponible para proyectos freelance</div>
+    <h1 data-i18n="hero-h1">ROMPO<br>TU BUILD<br><span class="out">ANTES&nbsp;QUE&nbsp;TÚ</span></h1>
+    <div class="hero-row">
+      <div>
+        <p class="hero-sub" data-i18n="hero-sub">QA Automation Engineer. Testing E2E, de API y de rendimiento integrado en tu pipeline de CI/CD — para que el bug lo encuentre yo en staging, no tu cliente en producción.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="https://calendly.com/mariog-rodriguezm" target="_blank" rel="noopener" style="background:#FFF3EA;color:var(--accent-ink);border-color:#FFF3EA;" data-i18n="btn-call">Agendar una llamada</a>
+          <a class="btn btn-line" href="https://linkedin.com/in/mariogrm" target="_blank" rel="noopener" style="border-color:#FFF3EA;" data-i18n="btn-linkedin">LinkedIn ↗</a>
+        </div>
+        <p class="aside-note" data-i18n="hero-aside">+ Cofundador de SolvoFlow — automatización de procesos con IA.</p>
+      </div>
+      <div class="stamp">
+        <div class="st-in" data-i18n="stamp"><span>Control de<br>calidad</span><b>APROBADO</b>+5 años</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="stats wrap" style="padding-inline:0;">
+  <div class="stats-grid">
+    <div class="stat"><b>+5</b><span data-i18n="stat-1">Años en QA</span></div>
+    <div class="stat"><b>3</b><span data-i18n="stat-2">Fintech · Aviación · Automatización</span></div>
+    <div class="stat"><b>100%</b><span data-i18n="stat-3">Remoto</span></div>
+    <div class="stat"><b>&lt;24H</b><span data-i18n="stat-4">Respuesta</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="sobre-mi">
+  <div class="sec-head">
+    <h2 data-i18n="about-h">Más cobertura, menos fuegos en producción</h2>
+    <span class="sec-num mono" data-i18n="about-tag">— sobre mí</span>
+  </div>
+  <p class="about-p" data-i18n="about-p">QA Automation Engineer con +5 años ayudando a equipos de desarrollo a subir su cobertura de tests automatizados, acortar el tiempo de regresión y encontrar los bugs críticos antes de que lleguen a producción — no después.</p>
+  <p class="about-avail" data-i18n="about-avail">Disponible para proyectos freelance/B2B, soporte QA part-time y testing de release — remoto, en España y a nivel internacional.</p>
+  <div class="cta-row">
+    <a class="btn btn-solid" href="#escribeme" data-i18n="about-cta1">Escríbeme</a>
+    <a class="btn btn-line" href="https://calendly.com/mariog-rodriguezm" target="_blank" rel="noopener" data-i18n="about-cta2">Agendar una llamada</a>
+  </div>
+</section>
+
+<section class="sec wrap" id="servicios">
+  <div class="sec-head">
+    <h2 data-i18n="svc-h">Qué hago</h2>
+    <span class="sec-num mono" data-i18n="svc-tag">— 07 servicios</span>
+  </div>
+  <div class="svc-list">
+    <div class="svc">
+      <div class="svc-idx">01</div>
+      <h3 data-i18n="svc1-h">E2E</h3>
+      <div class="svc-right">
+        <p data-i18n="svc1-p">Suites de regresión para flujos críticos: alta, pago, autenticación. Corren en cada PR, no solo antes de release.</p>
+        <div class="tools">PLAYWRIGHT (TS) · CYPRESS</div>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-idx">02</div>
+      <h3 data-i18n="svc2-h">API</h3>
+      <div class="svc-right">
+        <p data-i18n="svc2-p">Validación de payloads, códigos de estado, cabeceras de auth y consistencia de datos entre servicios integrados.</p>
+        <div class="tools">POSTMAN · MONGODB</div>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-idx">03</div>
+      <h3 data-i18n="svc3-h">Perf</h3>
+      <div class="svc-right">
+        <p data-i18n="svc3-p">Carga, estrés y rendimiento sostenido. Throughput, latencia P90/P95 y tasa de error bajo tráfico pico.</p>
+        <div class="tools">JMETER · DATADOG</div>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-idx">04</div>
+      <h3 data-i18n="svc4-h">CI/CD</h3>
+      <div class="svc-right">
+        <p data-i18n="svc4-p">Suites conectadas a Jenkins y GitLab CI, con reporting y trazabilidad frente a requisitos.</p>
+        <div class="tools">GITLAB CI · JENKINS · QMETRY</div>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-idx">05</div>
+      <h3 data-i18n="svc5-h">Automatización</h3>
+      <div class="svc-right">
+        <p data-i18n="svc5-p">Flujos de automatización fuera del ciclo QA (altas, CRMs, reporting interno) con integraciones vía API y webhooks, para equipos que quieren quitarse tareas manuales de encima.</p>
+        <div class="tools">N8N · MAKE</div>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-idx">06</div>
+      <h3 data-i18n="svc6-h">Manual</h3>
+      <div class="svc-right">
+        <p data-i18n="svc6-p">Testing manual y exploratorio como complemento a la automatización, para los casos que un script no cubre bien.</p>
+        <div class="tools">EXPLORATORY TESTING</div>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-idx">07</div>
+      <h3 data-i18n="svc7-h">Reports</h3>
+      <div class="svc-right">
+        <p data-i18n="svc7-p">Informes de release con bugs documentados y priorizados por severidad, listos para decidir qué bloquea el lanzamiento.</p>
+        <div class="tools">SEVERITY TRIAGE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="clientes">
+  <div class="sec-head">
+    <h2 data-i18n="cli-h">Resultados con clientes</h2>
+    <span class="sec-num mono" data-i18n="cli-tag">— casos reales</span>
+  </div>
+  <div class="case-list">
+    <div class="case">
+      <div class="case-stat">
+        <b>HTTP 200</b>
+        <span data-i18n="enaire-stat">con error oculto — detectado antes de producción</span>
+      </div>
+      <div>
+        <div class="case-tag" data-i18n="enaire-tag">Aviación · Sistemas de misión crítica</div>
+        <p data-i18n="enaire-p">Automatizo la regresión E2E y el testing de API de un sistema de control aéreo de alta disponibilidad. En una auditoría de endpoints encontré una respuesta que ocultaba un error crítico bajo un código de éxito, lo documenté con evidencia completa y lo escalé como prioridad alta antes de que llegara a producción.</p>
+        <div class="tools">PLAYWRIGHT · JMETER · POSTMAN</div>
+      </div>
+    </div>
+    <div class="case">
+      <div class="case-stat">
+        <b>P90 / P95</b>
+        <span data-i18n="fint-stat">latencia y tasa de error bajo control en cada release</span>
+      </div>
+      <div>
+        <div class="case-tag" data-i18n="fint-tag">Fintech · Plataforma financiera</div>
+        <p data-i18n="fint-p">Diseño la suite de regresión E2E de una plataforma financiera de gran escala: autenticación por token, consistencia de datos en MongoDB y testing de carga bajo picos de tráfico real.</p>
+        <div class="tools">PLAYWRIGHT · CYPRESS · JMETER</div>
+      </div>
+    </div>
+    <div class="case">
+      <div class="case-stat">
+        <b data-i18n="gd-stat-b">DRUPAL</b>
+        <span data-i18n="gd-stat">estructura, roles y permisos gestionados de extremo a extremo</span>
+      </div>
+      <div>
+        <div class="case-tag" data-i18n="gd-tag">Web · Sitios corporativos</div>
+        <p data-i18n="gd-p">Diseño y mantengo sitios corporativos adaptados a necesidades de negocio, cuidando estructura de contenido, seguridad y accesibilidad para los usuarios finales.</p>
+        <div class="tools">DRUPAL CMS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="stack">
+  <div class="sec-head">
+    <h2 data-i18n="stack-h">Stack técnico</h2>
+    <span class="sec-num mono" data-i18n="stack-tag">— herramientas reales</span>
+  </div>
+  <div class="stack-groups">
+    <div class="stack-card">
+      <h4 data-i18n="stack-g1">Automatización</h4>
+      <div class="chips">
+        <span class="chip">Playwright</span>
+        <span class="chip">TypeScript</span>
+        <span class="chip">Cypress</span>
+        <span class="chip">Appium</span>
+      </div>
+    </div>
+    <div class="stack-card">
+      <h4 data-i18n="stack-g2">API y datos</h4>
+      <div class="chips">
+        <span class="chip">Postman</span>
+        <span class="chip">JSON / XML</span>
+        <span class="chip">MongoDB</span>
+        <span class="chip">Node.js</span>
+      </div>
+    </div>
+    <div class="stack-card">
+      <h4 data-i18n="stack-g3">Performance</h4>
+      <div class="chips">
+        <span class="chip">JMeter</span>
+        <span class="chip">Datadog</span>
+        <span class="chip">Charles Proxy</span>
+      </div>
+    </div>
+    <div class="stack-card">
+      <h4 data-i18n="stack-g4">CI/CD y gestión</h4>
+      <div class="chips">
+        <span class="chip">GitLab CI</span>
+        <span class="chip">Jenkins</span>
+        <span class="chip">QMetry</span>
+        <span class="chip">Jira</span>
+      </div>
+    </div>
+    <div class="stack-card">
+      <h4 data-i18n="stack-g5">Automatización de procesos</h4>
+      <div class="chips">
+        <span class="chip">n8n</span>
+        <span class="chip">Make</span>
+        <span class="chip">Webhooks</span>
+      </div>
+    </div>
+    <div class="stack-card">
+      <h4 data-i18n="stack-g6">Monitoring</h4>
+      <div class="chips">
+        <span class="chip">Datadog</span>
+        <span class="chip">Charles Proxy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="certificaciones">
+  <div class="sec-head">
+    <h2 data-i18n="cert-h">Formación</h2>
+    <span class="sec-num mono" data-i18n="cert-tag">— certificaciones</span>
+  </div>
+  <div class="certs">
+    <div class="cert"><div class="cert-name" data-i18n="cert1">Full Stack Web Development</div></div>
+    <div class="cert"><div class="cert-name" data-i18n="cert2">QA Manual Tester</div></div>
+    <div class="cert"><div class="cert-name" data-i18n="cert3">Cybersecurity Expert</div></div>
+    <div class="cert"><div class="cert-name" data-i18n="cert4">GDPYMES — Aplicando IA al negocio</div></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="escribeme">
+  <div class="sec-head">
+    <h2 data-i18n="form-h">Escríbeme directamente</h2>
+    <span class="sec-num mono" data-i18n="form-tag">— respuesta en 24h</span>
+  </div>
+  <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm" novalidate>
+    <input type="hidden" name="form-name" value="contacto">
+    <p class="hp-field"><label>No llenar: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <div class="form-row">
+      <div class="field">
+        <label for="cf-name" data-i18n="form-name-label">Nombre <span class="field-required">*</span></label>
+        <input type="text" id="cf-name" name="name" autocomplete="name" required aria-required="true">
+        <span class="field-error" id="err-name"></span>
+      </div>
+      <div class="field">
+        <label for="cf-email" data-i18n="form-email-label">Email <span class="field-required">*</span></label>
+        <input type="email" id="cf-email" name="email" autocomplete="email" required aria-required="true">
+        <span class="field-error" id="err-email"></span>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label for="cf-phone" data-i18n="form-phone-label">Teléfono <span class="field-required">*</span></label>
+        <input type="tel" id="cf-phone" name="phone" autocomplete="tel" required aria-required="true" placeholder="+34 600 000 000">
+        <span class="field-error" id="err-phone"></span>
+      </div>
+      <div class="field">
+        <label for="cf-subject" data-i18n="form-subject-label">Asunto <span class="field-required">*</span></label>
+        <input type="text" id="cf-subject" name="subject" required aria-required="true">
+        <span class="field-error" id="err-subject"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="cf-message" data-i18n="form-message-label">Mensaje <span class="field-required">*</span></label>
+      <textarea id="cf-message" name="message" rows="5" required aria-required="true" minlength="10"></textarea>
+      <span class="field-error" id="err-message"></span>
+    </div>
+    <p class="form-note" data-i18n="form-privacy-note">Al enviar aceptas nuestra <a href="/privacidad.html">Política de Privacidad</a>. Tus datos se usan solo para responder a tu consulta.</p>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-solid" data-i18n="form-submit">Enviar mensaje</button>
+      <p class="form-status" id="formStatus" hidden></p>
+    </div>
+  </form>
+</section>
+
+<section class="cta-band" id="contacto">
+  <div class="wrap">
+    <div class="kicker" data-i18n="contact-kicker">Contacto</div>
+    <h2 data-i18n="contact-h">Hablemos</h2>
+    <p data-i18n="contact-p">Cuéntame el stack y el alcance del proyecto. Respondo en menos de 24h con una propuesta concreta.</p>
+    <div class="cta-row">
+      <a class="btn btn-mail" href="https://calendly.com/mariog-rodriguezm" target="_blank" rel="noopener" data-i18n="btn-call2">Agendar una llamada</a>
+      <a class="btn btn-mail" href="mailto:mariog.rodriguezm@gmail.com">mariog.rodriguezm@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<section class="logo-strip wrap">
+  <div class="strip-label" data-i18n="strip-label">Clientes con los que he trabajado</div>
+  <div class="logo-row">
+    <img src="assets/enaire.jpg" alt="ENAIRE">
+    <img src="assets/fintonic.png" alt="Fintonic">
+    <img src="assets/godaddy.png" alt="GoDaddy">
+  </div>
+</section>
+
+<footer class="foot wrap">
+  <div class="foot-inner">
+    <span>© 2026 MARIO RODRÍGUEZ · MARIOGRODRIGUEZ.COM</span>
+    <ul class="foot-links">
+      <li><a href="https://linkedin.com/in/mariogrm" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/MarioGRodriguez28" target="_blank" rel="noopener">GitHub</a></li>
+      <li><span>+34 657 621 851</span></li>
+    </ul>
+  </div>
+  <div class="foot-legal">
+    <ul class="foot-links">
+      <li><a href="/legal.html" data-i18n="foot-legal">Aviso Legal</a></li>
+      <li><a href="/privacidad.html" data-i18n="foot-privacy">Privacidad</a></li>
+      <li><a href="/cookies.html" data-i18n="foot-cookies">Cookies</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var I18N = {
+    "nav-about": {es:"Sobre mí", en:"About"},
+    "nav-servicios": {es:"Servicios", en:"Services"},
+    "nav-clientes": {es:"Clientes", en:"Clients"},
+    "nav-stack": {es:"Stack", en:"Stack"},
+    "nav-cert": {es:"Certificaciones", en:"Certifications"},
+    "nav-cta": {es:"Hablemos", en:"Let's talk"},
+    "hero-kicker": {es:"Disponible para proyectos freelance", en:"Available for freelance projects"},
+    "hero-h1": {es:'ROMPO<br>TU BUILD<br><span class="out">ANTES&nbsp;QUE&nbsp;TÚ</span>', en:'I BREAK<br>YOUR BUILD<br><span class="out">BEFORE&nbsp;YOU&nbsp;DO</span>'},
+    "hero-sub": {es:"QA Automation Engineer. Testing E2E, de API y de rendimiento integrado en tu pipeline de CI/CD — para que el bug lo encuentre yo en staging, no tu cliente en producción.", en:"QA Automation Engineer. E2E, API and performance testing built into your CI/CD pipeline — so I catch the bug in staging, not your client in production."},
+    "btn-call": {es:"Agendar una llamada", en:"Book a call"},
+    "btn-call2": {es:"Agendar una llamada", en:"Book a call"},
+    "btn-linkedin": {es:"LinkedIn ↗", en:"LinkedIn ↗"},
+    "hero-aside": {es:"+ Cofundador de SolvoFlow — automatización de procesos con IA.", en:"+ Co-founder of SolvoFlow — AI-driven process automation."},
+    "stamp": {es:'<span>Control de<br>calidad</span><b>APROBADO</b>+5 años', en:'<span>Quality<br>control</span><b>PASSED</b>+5 years'},
+    "stat-1": {es:"Años en QA", en:"Years in QA"},
+    "stat-2": {es:"Fintech · Aviación · Automatización", en:"Fintech · Aviation · Automation"},
+    "stat-3": {es:"Remoto", en:"Remote"},
+    "stat-4": {es:"Respuesta", en:"Response time"},
+    "svc-h": {es:"Qué hago", en:"What I do"},
+    "about-h": {es:"Más cobertura, menos fuegos en producción", en:"More coverage, fewer fires in production"},
+    "about-tag": {es:"— sobre mí", en:"— about me"},
+    "about-p": {es:"QA Automation Engineer con +5 años ayudando a equipos de desarrollo a subir su cobertura de tests automatizados, acortar el tiempo de regresión y encontrar los bugs críticos antes de que lleguen a producción — no después.", en:"QA Automation Engineer with +5 years helping development teams raise automated test coverage, cut regression time, and catch critical bugs before they reach production — not after."},
+    "about-avail": {es:"Disponible para proyectos freelance/B2B, soporte QA part-time y testing de release — remoto, en España y a nivel internacional.", en:"Available for freelance/B2B projects, part-time QA support and release testing — remote, within Spain and internationally."},
+    "about-cta1": {es:"Escríbeme", en:"Message me"},
+    "about-cta2": {es:"Agendar una llamada", en:"Book a call"},
+    "svc-tag": {es:"— 07 servicios", en:"— 07 services"},
+    "svc1-h": {es:"E2E", en:"E2E"},
+    "svc1-p": {es:"Suites de regresión para flujos críticos: alta, pago, autenticación. Corren en cada PR, no solo antes de release.", en:"Regression suites for critical flows: sign-up, payment, authentication. Run on every PR, not just before release."},
+    "svc2-h": {es:"API", en:"API"},
+    "svc2-p": {es:"Validación de payloads, códigos de estado, cabeceras de auth y consistencia de datos entre servicios integrados.", en:"Payload validation, status codes, auth headers and data consistency across integrated services."},
+    "svc3-h": {es:"Perf", en:"Perf"},
+    "svc3-p": {es:"Carga, estrés y rendimiento sostenido. Throughput, latencia P90/P95 y tasa de error bajo tráfico pico.", en:"Load, stress and sustained performance. Throughput, P90/P95 latency and error rate under peak traffic."},
+    "svc4-h": {es:"CI/CD", en:"CI/CD"},
+    "svc4-p": {es:"Suites conectadas a Jenkins y GitLab CI, con reporting y trazabilidad frente a requisitos.", en:"Suites wired into Jenkins and GitLab CI, with reporting and full requirement traceability."},
+    "svc5-h": {es:"Automatización", en:"Automation"},
+    "svc5-p": {es:"Flujos de automatización fuera del ciclo QA (altas, CRMs, reporting interno) con integraciones vía API y webhooks, para equipos que quieren quitarse tareas manuales de encima.", en:"Automation workflows outside the QA cycle (onboarding, CRMs, internal reporting) with API and webhook integrations, for teams that want manual busywork off their plate."},
+    "svc6-h": {es:"Manual", en:"Manual"},
+    "svc6-p": {es:"Testing manual y exploratorio como complemento a la automatización, para los casos que un script no cubre bien.", en:"Manual and exploratory testing as a complement to automation, for the cases a script doesn't cover well."},
+    "svc7-h": {es:"Reports", en:"Reports"},
+    "svc7-p": {es:"Informes de release con bugs documentados y priorizados por severidad, listos para decidir qué bloquea el lanzamiento.", en:"Release reports with bugs documented and prioritized by severity, ready to decide what blocks the release."},
+    "cli-h": {es:"Resultados con clientes", en:"Client results"},
+    "cli-tag": {es:"— casos reales", en:"— real cases"},
+    "enaire-stat": {es:"con error oculto — detectado antes de producción", en:"hiding an error — caught before production"},
+    "enaire-tag": {es:"Aviación · Sistemas de misión crítica", en:"Aviation · Mission-critical systems"},
+    "enaire-p": {es:"Automatizo la regresión E2E y el testing de API de un sistema de control aéreo de alta disponibilidad. En una auditoría de endpoints encontré una respuesta que ocultaba un error crítico bajo un código de éxito, lo documenté con evidencia completa y lo escalé como prioridad alta antes de que llegara a producción.", en:"I automate E2E regression and API testing for a high-availability air traffic control system. During an endpoint audit I found a response hiding a critical error behind a success code — documented with full evidence and escalated as high priority before it reached production."},
+    "fint-stat": {es:"latencia y tasa de error bajo control en cada release", en:"latency and error rate kept in check on every release"},
+    "fint-tag": {es:"Fintech · Plataforma financiera", en:"Fintech · Financial platform"},
+    "fint-p": {es:"Diseño la suite de regresión E2E de una plataforma financiera de gran escala: autenticación por token, consistencia de datos en MongoDB y testing de carga bajo picos de tráfico real.", en:"I build the E2E regression suite for a large-scale financial platform: token-based authentication, MongoDB data consistency and load testing under real traffic spikes."},
+    "gd-stat-b": {es:"DRUPAL", en:"DRUPAL"},
+    "gd-stat": {es:"estructura, roles y permisos gestionados de extremo a extremo", en:"structure, roles and permissions managed end to end"},
+    "gd-tag": {es:"Web · Sitios corporativos", en:"Web · Corporate sites"},
+    "gd-p": {es:"Diseño y mantengo sitios corporativos adaptados a necesidades de negocio, cuidando estructura de contenido, seguridad y accesibilidad para los usuarios finales.", en:"I design and maintain corporate sites tailored to business needs, taking care of content structure, security and accessibility for end users."},
+    "stack-h": {es:"Stack técnico", en:"Tech stack"},
+    "stack-tag": {es:"— herramientas reales", en:"— real tools"},
+    "stack-g1": {es:"Automatización", en:"Automation"},
+    "stack-g2": {es:"API y datos", en:"API & data"},
+    "stack-g3": {es:"Performance", en:"Performance"},
+    "stack-g4": {es:"CI/CD y gestión", en:"CI/CD & management"},
+    "stack-g5": {es:"Automatización de procesos", en:"Process automation"},
+    "stack-g6": {es:"Monitoring", en:"Monitoring"},
+    "cert-h": {es:"Formación", en:"Certifications"},
+    "cert-tag": {es:"— certificaciones", en:"— certifications"},
+    "cert1": {es:"Full Stack Web Development", en:"Full Stack Web Development"},
+    "cert2": {es:"QA Manual Tester", en:"QA Manual Tester"},
+    "cert3": {es:"Cybersecurity Expert", en:"Cybersecurity Expert"},
+    "cert4": {es:"GDPYMES — Aplicando IA al negocio", en:"GDPYMES Programme — Applying AI to Business"},
+    "contact-kicker": {es:"Contacto", en:"Contact"},
+    "contact-h": {es:"Hablemos", en:"Let's talk"},
+    "contact-p": {es:"Cuéntame el stack y el alcance del proyecto. Respondo en menos de 24h con una propuesta concreta.", en:"Tell me the stack and scope of your project. I reply within 24h with a concrete proposal."},
+    "strip-label": {es:"Clientes con los que he trabajado", en:"Clients I've worked with"},
+    "form-h": {es:"Escríbeme directamente", en:"Write to me directly"},
+    "form-tag": {es:"— respuesta en 24h", en:"— reply within 24h"},
+    "form-name-label": {es:"Nombre", en:"Name"},
+    "form-email-label": {es:"Email", en:"Email"},
+    "form-message-label": {es:"Mensaje", en:"Message"},
+    "form-phone-label": {es:"Teléfono", en:"Phone"},
+    "form-subject-label": {es:"Asunto", en:"Subject"},
+    "form-privacy-note": {es:'Al enviar aceptas nuestra <a href="/privacidad.html">Política de Privacidad</a>. Tus datos se usan solo para responder a tu consulta.', en:'By submitting you accept our <a href="/privacidad.html">Privacy Policy</a>. Your data is used only to reply to your enquiry.'},
+    "foot-legal": {es:"Aviso Legal", en:"Legal Notice"},
+    "foot-privacy": {es:"Privacidad", en:"Privacy"},
+    "foot-cookies": {es:"Cookies", en:"Cookies"},
+    "cookie-text": {es:'Solo usamos almacenamiento técnico necesario (idioma) — sin cookies de analítica ni publicidad. Más info en nuestra <a href="/cookies.html">Política de Cookies</a>.', en:'We only use necessary technical storage (language) — no analytics or advertising cookies. More in our <a href="/cookies.html">Cookie Policy</a>.'},
+    "cookie-ok": {es:"Entendido", en:"Got it"},
+    "form-submit": {es:"Enviar mensaje", en:"Send message"},
+    "form-sending": {es:"Enviando…", en:"Sending…"},
+    "form-ok": {es:"Mensaje enviado. Te respondo en menos de 24h.", en:"Message sent. I'll reply within 24h."},
+    "form-err": {es:"No se pudo enviar. Prueba de nuevo o escríbeme a mariog.rodriguezm@gmail.com.", en:"Something went wrong. Try again or email me at mariog.rodriguezm@gmail.com."}
+  };
+  var btn = document.getElementById('langToggle');
+  var current = 'es';
+  try { current = localStorage.getItem('mr-lang') || 'es'; } catch(e) {}
+  function apply(lang){
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var entry = I18N[el.dataset.i18n];
+      if (entry && entry[lang]) el.innerHTML = entry[lang];
+    });
+    btn.textContent = lang === 'es' ? 'EN' : 'ES';
+    document.documentElement.lang = lang;
+  }
+  apply(current);
+  btn.addEventListener('click', function(){
+    current = current === 'es' ? 'en' : 'es';
+    try { localStorage.setItem('mr-lang', current); } catch(e) {}
+    apply(current);
+  });
+})();
+
+(function(){
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  var status = document.getElementById('formStatus');
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var msgs = {
+    es: {
+      sending:"Enviando…", ok:"Mensaje enviado. Te respondo en menos de 24h.", err:"No se pudo enviar. Prueba de nuevo o escríbeme a mariog.rodriguezm@gmail.com.",
+      required:"Este campo es obligatorio.", email:"Introduce un email válido.", phone:"Introduce un teléfono válido (mínimo 9 dígitos).", short:"Cuéntame un poco más (mínimo 10 caracteres)."
+    },
+    en: {
+      sending:"Sending…", ok:"Message sent. I'll reply within 24h.", err:"Something went wrong. Try again or email me at mariog.rodriguezm@gmail.com.",
+      required:"This field is required.", email:"Enter a valid email.", phone:"Enter a valid phone number (min. 9 digits).", short:"Tell me a bit more (min. 10 characters)."
+    }
+  };
+  function lang(){
+    var l = 'es';
+    try { l = localStorage.getItem('mr-lang') || 'es'; } catch(e) {}
+    return msgs[l] ? l : 'es';
+  }
+  function encode(data){
+    return Object.keys(data).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+    }).join('&');
+  }
+  var fields = ['name','email','phone','subject','message'];
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var phoneRe = /^[+\d][\d\s()-]{8,}$/;
+  function validateField(name){
+    var input = form.querySelector('[name="' + name + '"]');
+    var err = document.getElementById('err-' + name);
+    var val = input.value.trim();
+    var m = msgs[lang()];
+    var message = '';
+    if (!val) message = m.required;
+    else if (name === 'email' && !emailRe.test(val)) message = m.email;
+    else if (name === 'phone' && !phoneRe.test(val)) message = m.phone;
+    else if (name === 'message' && val.length < 10) message = m.short;
+    if (err) err.textContent = message;
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    return !message;
+  }
+  fields.forEach(function(name){
+    var input = form.querySelector('[name="' + name + '"]');
+    if (input) input.addEventListener('blur', function(){ validateField(name); });
+  });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var allValid = true;
+    var firstInvalid = null;
+    fields.forEach(function(name){
+      var ok = validateField(name);
+      if (!ok && !firstInvalid) firstInvalid = form.querySelector('[name="' + name + '"]');
+      allValid = allValid && ok;
+    });
+    if (!allValid) {
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+    var data = {};
+    new FormData(form).forEach(function(v,k){ data[k] = v; });
+    status.hidden = false;
+    status.className = 'form-status';
+    status.textContent = msgs[lang()].sending;
+    submitBtn.disabled = true;
+    fetch('/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: encode(data)
+    }).then(function(res){
+      if (!res.ok) throw new Error('bad status');
+      status.className = 'form-status ok';
+      status.textContent = msgs[lang()].ok;
+      form.reset();
+    }).catch(function(){
+      status.className = 'form-status err';
+      status.textContent = msgs[lang()].err;
+    }).finally(function(){
+      submitBtn.disabled = false;
+    });
+  });
+})();
+
+(function(){
+  var notice = document.getElementById('cookieNotice');
+  var okBtn = document.getElementById('cookieOk');
+  if (!notice || !okBtn) return;
+  var seen = false;
+  try { seen = localStorage.getItem('mr-cookie-ok') === '1'; } catch(e) {}
+  if (!seen) notice.hidden = false;
+  okBtn.addEventListener('click', function(){
+    notice.hidden = true;
+    try { localStorage.setItem('mr-cookie-ok', '1'); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
