@@ -132,6 +132,7 @@
   --surface:#FFFFFF;
   --accent:#FF4420;
   --accent-ink:#5C1400;
+  --accent-text:#C93519;
   --lime:#5C7A3A;
   --line:#141210;
   --mute:#5B5548;
@@ -178,13 +179,13 @@ a{color:inherit;}
 /* ---------- HERO ---------- */
 .hero{background:var(--accent);color:#FFF3EA;border-bottom:3px solid var(--line);position:relative;overflow:hidden;}
 .hero-inner{padding-block:clamp(32px,6vw,52px) clamp(56px,9vw,96px);position:relative;}
-.kicker{font-family:"JetBrains Mono",monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0.92;}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:20px;color:var(--ink);}
 .kicker::before{content:"";width:9px;height:9px;background:var(--lime);display:inline-block;}
 .hero h1{font-size:clamp(3.2rem,11vw,8.2rem);color:#FFF3EA;}
 .hero h1 .out{-webkit-text-stroke:2px #FFF3EA;color:transparent;}
 .hero-row{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;margin-top:28px;}
-.hero-sub{max-width:46ch;font-size:1.15rem;opacity:0.95;}
-.aside-note{margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:0.82rem;opacity:0.85;}
+.hero-sub{max-width:46ch;font-size:1.15rem;color:var(--ink);}
+.aside-note{margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:0.82rem;color:var(--ink);}
 .about-p{max-width:66ch;font-size:1.08rem;color:var(--ink);margin-bottom:16px;}
 .about-avail{font-family:"JetBrains Mono",monospace;font-size:0.84rem;color:var(--mute);max-width:60ch;}
 .stamp{
@@ -225,14 +226,14 @@ a{color:inherit;}
 .case-stat{display:flex;flex-direction:column;gap:6px;}
 .case-stat b{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.15rem);color:var(--accent);line-height:0.95;}
 .case-stat span{font-family:"JetBrains Mono",monospace;font-size:0.7rem;color:var(--mute);text-transform:uppercase;line-height:1.35;}
-.case-tag{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;}
+.case-tag{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--accent-text);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;}
 .case p{font-size:1.03rem;color:var(--ink);max-width:58ch;}
 .case .tools{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:0.72rem;color:var(--mute);}
 
 /* ---------- STACK ---------- */
 .stack-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:3px solid var(--line);border-left:3px solid var(--line);}
 .stack-card{border-right:3px solid var(--line);border-bottom:3px solid var(--line);padding:22px;}
-.stack-card h4{font-family:"JetBrains Mono",monospace;font-size:0.74rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;}
+.stack-card h3{font-weight:700;line-height:1.5;margin-top:1.33em;font-family:"JetBrains Mono",monospace;font-size:0.74rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;}
 .chips{display:flex;flex-wrap:wrap;gap:8px;}
 .chip{font-family:"JetBrains Mono",monospace;font-size:0.78rem;border:2px solid var(--line);padding:6px 11px;}
 
@@ -268,22 +269,22 @@ a{color:inherit;}
 .field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:2px;}
 .field textarea{resize:vertical;min-height:130px;font-family:"Archivo",sans-serif;}
 .field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--accent);}
-.field-error{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--accent);min-height:1em;}
-.field-required{color:var(--accent);}
+.field-error{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--accent-text);min-height:1em;}
+.field-required{color:var(--accent-text);}
 .hp-field{position:absolute;left:-9999px;top:-9999px;}
 .form-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
 .form-status{font-family:"JetBrains Mono",monospace;font-size:0.82rem;}
 .form-status.ok{color:var(--lime);}
-.form-status.err{color:var(--accent);}
+.form-status.err{color:var(--accent-text);}
 .form-note{font-family:"JetBrains Mono",monospace;font-size:0.74rem;color:var(--mute);max-width:60ch;}
 .form-note a{color:var(--ink);}
 
 /* ---------- FINAL CTA ---------- */
 .cta-band{background:var(--accent);color:#FFF3EA;padding-block:clamp(56px,9vw,100px);text-align:center;border-bottom:3px solid var(--line);}
-.cta-band .kicker{justify-content:center;color:#FFF3EA;}
+.cta-band .kicker{justify-content:center;}
 .cta-band .kicker::before{background:var(--ink);}
 .cta-band h2{font-size:clamp(2.6rem,8vw,6rem);color:#FFF3EA;}
-.cta-band p{color:#FFF3EA;opacity:0.85;max-width:46ch;margin-inline:auto;margin-top:20px;font-size:1.05rem;}
+.cta-band p{color:var(--ink);max-width:46ch;margin-inline:auto;margin-top:20px;font-size:1.05rem;}
 .cta-band .cta-row{justify-content:center;margin-top:32px;}
 .cta-band .btn-line{border-color:#FFF3EA;}
 .cta-band .btn-line:hover{background:#FFF3EA;color:var(--accent-ink);}
@@ -340,8 +341,8 @@ footer.foot{padding-block:28px;}
 </head>
 <body>
 
-<div class="cookie-notice" id="cookieNotice" hidden>
-  <p data-i18n="cookie-text">Solo usamos almacenamiento técnico necesario (idioma) — sin cookies de analítica ni publicidad. Más info en nuestra <a href="/cookies.html">Política de Cookies</a>.</p>
+<div class="cookie-notice" id="cookieNotice" role="region" aria-labelledby="cookieText" hidden>
+  <p id="cookieText" data-i18n="cookie-text">Solo usamos almacenamiento técnico necesario (idioma) — sin cookies de analítica ni publicidad. Más info en nuestra <a href="/cookies.html">Política de Cookies</a>.</p>
   <button type="button" id="cookieOk" data-i18n="cookie-ok">Entendido</button>
 </div>
 
@@ -382,6 +383,7 @@ footer.foot{padding-block:28px;}
   </div>
 </header>
 
+<main id="main">
 <section class="stats wrap" style="padding-inline:0;">
   <div class="stats-grid">
     <div class="stat"><b>+5</b><span data-i18n="stat-1">Años en QA</span></div>
@@ -518,7 +520,7 @@ footer.foot{padding-block:28px;}
   </div>
   <div class="stack-groups">
     <div class="stack-card">
-      <h4 data-i18n="stack-g1">Automatización</h4>
+      <h3 data-i18n="stack-g1">Automatización</h3>
       <div class="chips">
         <span class="chip">Playwright</span>
         <span class="chip">TypeScript</span>
@@ -527,7 +529,7 @@ footer.foot{padding-block:28px;}
       </div>
     </div>
     <div class="stack-card">
-      <h4 data-i18n="stack-g2">API y datos</h4>
+      <h3 data-i18n="stack-g2">API y datos</h3>
       <div class="chips">
         <span class="chip">Postman</span>
         <span class="chip">JSON / XML</span>
@@ -536,7 +538,7 @@ footer.foot{padding-block:28px;}
       </div>
     </div>
     <div class="stack-card">
-      <h4 data-i18n="stack-g3">Performance</h4>
+      <h3 data-i18n="stack-g3">Performance</h3>
       <div class="chips">
         <span class="chip">JMeter</span>
         <span class="chip">Datadog</span>
@@ -544,7 +546,7 @@ footer.foot{padding-block:28px;}
       </div>
     </div>
     <div class="stack-card">
-      <h4 data-i18n="stack-g4">CI/CD y gestión</h4>
+      <h3 data-i18n="stack-g4">CI/CD y gestión</h3>
       <div class="chips">
         <span class="chip">GitLab CI</span>
         <span class="chip">Jenkins</span>
@@ -553,7 +555,7 @@ footer.foot{padding-block:28px;}
       </div>
     </div>
     <div class="stack-card">
-      <h4 data-i18n="stack-g5">Automatización de procesos</h4>
+      <h3 data-i18n="stack-g5">Automatización de procesos</h3>
       <div class="chips">
         <span class="chip">n8n</span>
         <span class="chip">Make</span>
@@ -561,7 +563,7 @@ footer.foot{padding-block:28px;}
       </div>
     </div>
     <div class="stack-card">
-      <h4 data-i18n="stack-g6">Monitoring</h4>
+      <h3 data-i18n="stack-g6">Monitoring</h3>
       <div class="chips">
         <span class="chip">Datadog</span>
         <span class="chip">Charles Proxy</span>
@@ -677,6 +679,7 @@ footer.foot{padding-block:28px;}
     <img src="assets/godaddy.png" alt="GoDaddy">
   </div>
 </section>
+</main>
 
 <footer class="foot wrap">
   <div class="foot-inner">
