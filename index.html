@@ -234,6 +234,9 @@ a{color:inherit;}
 .stack-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:3px solid var(--line);border-left:3px solid var(--line);}
 .stack-card{border-right:3px solid var(--line);border-bottom:3px solid var(--line);padding:22px;}
 .stack-card h3{font-weight:700;line-height:1.5;margin-top:1.33em;font-family:"JetBrains Mono",monospace;font-size:0.74rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;}
+.stack-card h3 a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;}
+.stack-card h3 a:hover,.stack-card h3 a:focus-visible{color:var(--accent-text);}
+.stack-card p{margin:0 0 14px;font-size:0.92rem;line-height:1.5;}
 .chips{display:flex;flex-wrap:wrap;gap:8px;}
 .chip{font-family:"JetBrains Mono",monospace;font-size:0.78rem;border:2px solid var(--line);padding:6px 11px;}
 
@@ -354,6 +357,7 @@ footer.foot{padding-block:28px;}
       <li><a href="#servicios" data-i18n="nav-servicios">Servicios</a></li>
       <li><a href="#clientes" data-i18n="nav-clientes">Clientes</a></li>
       <li><a href="#stack" data-i18n="nav-stack">Stack</a></li>
+      <li><a href="#codigo" data-i18n="nav-code">Código</a></li>
       <li><a href="#certificaciones" data-i18n="nav-cert">Certificaciones</a></li>
     </ul>
     <div class="nav-right">
@@ -572,6 +576,40 @@ footer.foot{padding-block:28px;}
   </div>
 </section>
 
+<section class="sec wrap" id="codigo">
+  <div class="sec-head">
+    <h2 data-i18n="code-h">Código público</h2>
+    <span class="sec-num mono" data-i18n="code-tag">— repositorios en GitHub</span>
+  </div>
+  <div class="stack-groups">
+    <div class="stack-card">
+      <h3><a href="https://github.com/MarioGRodriguez28/playwright-e2e-framework" target="_blank" rel="noopener">playwright-e2e-framework</a></h3>
+      <p data-i18n="code-p1">Framework E2E y de API con page objects, fixtures, suites etiquetadas y pipeline en GitHub Actions con informes y trazas.</p>
+      <div class="chips"><span class="chip">Playwright</span><span class="chip">TypeScript</span><span class="chip">GitHub Actions</span></div>
+    </div>
+    <div class="stack-card">
+      <h3><a href="https://github.com/MarioGRodriguez28/qa-audit-agent" target="_blank" rel="noopener">qa-audit-agent</a></h3>
+      <p data-i18n="code-p2">Audita una API desde su especificación OpenAPI y una web en un navegador real, puntúa el resultado y genera un informe legible.</p>
+      <div class="chips"><span class="chip">Node.js</span><span class="chip">Playwright</span><span class="chip">axe-core</span></div>
+    </div>
+    <div class="stack-card">
+      <h3><a href="https://github.com/MarioGRodriguez28/api-testing-suite" target="_blank" rel="noopener">api-testing-suite</a></h3>
+      <p data-i18n="code-p3">Suite de pruebas de API REST: CRUD, casos límite, gestión de errores y umbral de cobertura exigido en CI.</p>
+      <div class="chips"><span class="chip">Jest</span><span class="chip">Supertest</span></div>
+    </div>
+    <div class="stack-card">
+      <h3><a href="https://github.com/MarioGRodriguez28/qa-test-helpers" target="_blank" rel="noopener">qa-test-helpers</a></h3>
+      <p data-i18n="code-p4">Librería de utilidades de testing: constructor de peticiones, generadores de datos, validadores y reporters.</p>
+      <div class="chips"><span class="chip">Node.js</span><span class="chip">Jest</span></div>
+    </div>
+    <div class="stack-card">
+      <h3><a href="https://github.com/MarioGRodriguez28/performance-load-tests" target="_blank" rel="noopener">performance-load-tests</a></h3>
+      <p data-i18n="code-p5">Scripts k6 de humo, carga y estrés con umbrales sobre p95, p99 y tasa de error.</p>
+      <div class="chips"><span class="chip">k6</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec wrap" id="certificaciones">
   <div class="sec-head">
     <h2 data-i18n="cert-h">Formación</h2>
@@ -762,6 +800,14 @@ footer.foot{padding-block:28px;}
     "stack-g4": {es:"CI/CD y gestión", en:"CI/CD & management"},
     "stack-g5": {es:"Automatización de procesos", en:"Process automation"},
     "stack-g6": {es:"Monitoring", en:"Monitoring"},
+    "nav-code": {es:"Código", en:"Code"},
+    "code-h": {es:"Código público", en:"Public code"},
+    "code-tag": {es:"— repositorios en GitHub", en:"— repositories on GitHub"},
+    "code-p1": {es:"Framework E2E y de API con page objects, fixtures, suites etiquetadas y pipeline en GitHub Actions con informes y trazas.", en:"E2E and API framework with page objects, fixtures, tagged suites and a GitHub Actions pipeline with reports and traces."},
+    "code-p2": {es:"Audita una API desde su especificación OpenAPI y una web en un navegador real, puntúa el resultado y genera un informe legible.", en:"Audits an API from its OpenAPI spec and a web page in a real browser, scores the result and writes a readable report."},
+    "code-p3": {es:"Suite de pruebas de API REST: CRUD, casos límite, gestión de errores y umbral de cobertura exigido en CI.", en:"REST API test suite: CRUD, edge cases, error handling and a coverage threshold enforced in CI."},
+    "code-p4": {es:"Librería de utilidades de testing: constructor de peticiones, generadores de datos, validadores y reporters.", en:"Testing utilities library: request builder, data generators, validators and reporters."},
+    "code-p5": {es:"Scripts k6 de humo, carga y estrés con umbrales sobre p95, p99 y tasa de error.", en:"k6 smoke, load and stress scripts with thresholds on p95, p99 and error rate."},
     "cert-h": {es:"Formación", en:"Certifications"},
     "cert-tag": {es:"— certificaciones", en:"— certifications"},
     "cert1": {es:"Full Stack Web Development", en:"Full Stack Web Development"},
